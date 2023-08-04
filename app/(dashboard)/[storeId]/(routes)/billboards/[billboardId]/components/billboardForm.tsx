@@ -16,9 +16,7 @@ import toast from "react-hot-toast";
 import axios from "axios";
 import {useParams, useRouter} from "next/navigation";
 import {AlertModal} from "@/components/modals/alertModal";
-import {ApiAlert} from "@/components/ui/apiAlert";
 import {useOrigin} from "@/hooks/useOrigin";
-import {Description} from "@radix-ui/react-dialog";
 import ImageUpload from "@/components/ui/imageUpload";
 
 const formSchema = z.object({
@@ -77,7 +75,7 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({initialData}) => {
             setLoading(true)
             await axios.delete(`/api/${params.storeId}/billboards/${params.billboardId}`)
             router.refresh();
-            router.push("/")
+            router.push(`/${params.storeId}/billboards`)
             toast.success("Billboard deleted.")
 
         } catch (error) {
@@ -131,7 +129,6 @@ export const BillboardForm: React.FC<BillboardFormProps> = ({initialData}) => {
                     <Button disabled={loading} className="ml-auto" type="submit">{action}</Button>
                 </form>
             </Form>
-            <Separator/>
         </>
     )
 }
